@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -51,7 +52,7 @@ class UserSeeder extends Seeder
                 'role' => 'admin',
                 'is_banned' => false,
             ],
-        ]
+        ];
 
         foreach ($users as $userData) {
             User::updateOrCreate(

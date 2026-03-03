@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 's0la1n',
                 'login' => 's0la1n',
-                'email' => '',
+                'email' => 'liana.mannapova@bk.ru',
                 'password' => Hash::make('123456'),
                 'role' => 'admin',
                 'is_banned' => false,
@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'mikamikisser',
                 'login' => 'mikamikisser',
-                'email' => '',
+                'email' => 'nailanatfullina@gmail.com',
                 'password' => Hash::make('123456'),
                 'role' => 'admin',
                 'is_banned' => false,
@@ -39,7 +39,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'zushon',
                 'login' => 'zushon',
-                'email' => '',
+                'email' => 'Regina15may2006@gmail.com',
                 'password' => Hash::make('123456'),
                 'role' => 'admin',
                 'is_banned' => false,
@@ -47,7 +47,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'levlafan1',
                 'login' => 'levlafan1',
-                'email' => '',
+                'email' => 'nurutdinovas63@gmail.com',
                 'password' => Hash::make('123456'),
                 'role' => 'admin',
                 'is_banned' => false,
@@ -57,13 +57,9 @@ class UserSeeder extends Seeder
         foreach ($users as $userData) {
             User::updateOrCreate(
                 [
-                    'name' => $userData['name'],
-                    'login' => $userData['login'],
-                    'email' => $userData['email'],
-                    'password' => $userData['password'],
-                    'role' => $userData['role'],
-                    'is_banned' => $userData['is_banned'],
-                ]
+                    'login' => $userData['login'],  //искать пользователя только по логину, а остальные поля обновлять
+                ],
+                $userData
             );
         }
     }

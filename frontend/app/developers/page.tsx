@@ -1,4 +1,4 @@
-import { PageSection } from "../components/PageSection";
+import { DevelopersClient } from "./DevelopersClient";
 
 export const metadata = {
   title: "Разработчики — RuCraft",
@@ -6,15 +6,5 @@ export const metadata = {
 };
 
 export default function DevelopersPage() {
-  return (
-    <div className="page-content">
-      <PageSection title="Разработчики">
-        <p>
-          Страница с информацией о разработчиках сайта: роли, скины, био,
-          ссылки на Telegram и VK.
-        </p>
-        <p>Карточки разработчиков будут подгружаться из API.</p>
-      </PageSection>
-    </div>
-  );
+  return <DevelopersClient />;
 }

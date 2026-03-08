@@ -7,18 +7,27 @@ export const metadata = {
   description: "Постройки для Minecraft: название, фото, список блоков и количество, видео.",
 };
 
-async function getBuilds(): Promise<BuildPost[]> {
-  const res = await buildsApi.index();
-  return res.data;
+async function getBuilds(): Promise<{ data: BuildPost[]; error?: boolean }> {
+  try {
+    const res = await buildsApi.index();
+    return { data: res.data };
+  } catch (err) {
+    console.error("Builds fetch failed:", err);
+    return { data: [], error: true };
+  }
 }
 
 export default async function BuildsPage() {
-  const builds = await getBuilds();
+  const { data: builds, error: fetchFailed } = await getBuilds();
 
   return (
     <div className="page-content">
       <PageSection title="Постройки">
-        {builds.length === 0 ? (
+        {fetchFailed ? (
+          <p className="form-error">
+            Не удалось загрузить данные. Убедитесь, что бэкенд запущен (<code>php artisan serve</code>) и в <code>.env.local</code> указан <code>NEXT_PUBLIC_API_URL</code> (например, http://localhost:8000/api).
+          </p>
+        ) : builds.length === 0 ? (
           <p>Построек пока нет.</p>
         ) : (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">

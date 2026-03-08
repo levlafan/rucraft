@@ -7,18 +7,31 @@ export const metadata = {
   description: "Моды для Minecraft: название, фото, описание, zip или rar файл.",
 };
 
-async function getMods(): Promise<ModPost[]> {
-  const res = await modsApi.index();
-  return res.data;
+const apiErrorMessage = (
+  <p className="form-error">
+    Не удалось загрузить данные. Убедитесь, что бэкенд запущен (<code>php artisan serve</code>) и в <code>.env.local</code> указан <code>NEXT_PUBLIC_API_URL</code> (например, http://localhost:8000/api).
+  </p>
+);
+
+async function getMods(): Promise<{ data: ModPost[]; error?: boolean }> {
+  try {
+    const res = await modsApi.index();
+    return { data: res.data };
+  } catch (err) {
+    console.error("Mods fetch failed:", err);
+    return { data: [], error: true };
+  }
 }
 
 export default async function ModsPage() {
-  const mods = await getMods();
+  const { data: mods, error: fetchFailed } = await getMods();
 
   return (
     <div className="page-content">
       <PageSection title="Моды">
-        {mods.length === 0 ? (
+        {fetchFailed ? (
+          apiErrorMessage
+        ) : mods.length === 0 ? (
           <p>Модов пока нет.</p>
         ) : (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">

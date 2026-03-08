@@ -7,18 +7,31 @@ export const metadata = {
   description: "Скины для Minecraft: смешные, для девочек, для мальчиков, аниме. Фото и развёртка для скачивания.",
 };
 
-async function getSkins(): Promise<SkinPost[]> {
-  const res = await skinsApi.index();
-  return res.data;
+const apiErrorMessage = (
+  <p className="form-error">
+    Не удалось загрузить данные. Убедитесь, что бэкенд запущен (<code>php artisan serve</code>) и в <code>.env.local</code> указан <code>NEXT_PUBLIC_API_URL</code> (например, http://localhost:8000/api).
+  </p>
+);
+
+async function getSkins(): Promise<{ data: SkinPost[]; error?: boolean }> {
+  try {
+    const res = await skinsApi.index();
+    return { data: res.data };
+  } catch (err) {
+    console.error("Skins fetch failed:", err);
+    return { data: [], error: true };
+  }
 }
 
 export default async function SkinsPage() {
-  const skins = await getSkins();
+  const { data: skins, error: fetchFailed } = await getSkins();
 
   return (
     <div className="page-content">
       <PageSection title="Скины">
-        {skins.length === 0 ? (
+        {fetchFailed ? (
+          apiErrorMessage
+        ) : skins.length === 0 ? (
           <p>Скинов пока нет.</p>
         ) : (
           <div className="grid grid-cols-2 gap-6 md:grid-cols-4">

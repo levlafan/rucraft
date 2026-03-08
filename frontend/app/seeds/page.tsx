@@ -7,18 +7,31 @@ export const metadata = {
   description: "Сиды для Minecraft: название, номер сида, версия, релиз, координаты.",
 };
 
-async function getSeeds(): Promise<SeedPost[]> {
-  const res = await seedsApi.index();
-  return res.data;
+const apiErrorMessage = (
+  <p className="form-error">
+    Не удалось загрузить данные. Убедитесь, что бэкенд запущен (<code>php artisan serve</code>) и в <code>.env.local</code> указан <code>NEXT_PUBLIC_API_URL</code> (например, http://localhost:8000/api).
+  </p>
+);
+
+async function getSeeds(): Promise<{ data: SeedPost[]; error?: boolean }> {
+  try {
+    const res = await seedsApi.index();
+    return { data: res.data };
+  } catch (err) {
+    console.error("Seeds fetch failed:", err);
+    return { data: [], error: true };
+  }
 }
 
 export default async function SeedsPage() {
-  const seeds = await getSeeds();
+  const { data: seeds, error: fetchFailed } = await getSeeds();
 
   return (
     <div className="page-content">
       <PageSection title="Сиды">
-        {seeds.length === 0 ? (
+        {fetchFailed ? (
+          apiErrorMessage
+        ) : seeds.length === 0 ? (
           <p>Сидов пока нет.</p>
         ) : (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">

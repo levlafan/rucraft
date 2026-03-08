@@ -4,11 +4,11 @@ import Link from "next/link";
 import { useAuth } from "../context/AuthContext";
 
 const nav = [
-  { href: "/developers", label: "Разработчики" },
-  { href: "/builds", label: "Постройки" },
-  { href: "/skins", label: "Скины" },
-  { href: "/mods", label: "Моды" },
-  { href: "/seeds", label: "Сиды" },
+  { href: "/developers", label: "рАЗрАБоТ4ИКИ)))" },
+  { href: "/builds", label: "ПОСТРОЙКИ" },
+  { href: "/skins", label: "СКИНЫ" },
+  { href: "/seeds", label: "СИДЫ" },
+  { href: "/mods", label: "МОДЫ" },
 ] as const;
 
 export function Header() {
@@ -42,8 +42,10 @@ export function Header() {
             </>
           ) : (
             <>
-              <Link href="/auth/login">Войти</Link>
-              <Link href="/auth/register" className="btn-register">
+              <Link href="/auth/login" className="btn-auth">
+                Войти
+              </Link>
+              <Link href="/auth/register" className="btn-auth btn-register">
                 Зарегистрироваться
               </Link>
             </>

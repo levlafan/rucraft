@@ -4,122 +4,96 @@ import { HeroSlider } from "./components/HeroSlider";
 
 export default function Home() {
   return (
-    <div className="bg-zinc-50 dark:bg-zinc-950">
-      {/* 1. Баннер со слайдером */}
+    <>
       <HeroSlider />
 
       <main className="mx-auto max-w-6xl px-4 py-8">
         <BackendStatus />
       </main>
 
-      {/* 2. Блок Постройки */}
-      <section className="border-t border-zinc-200 bg-white py-16 dark:border-zinc-800 dark:bg-zinc-900">
-        <div className="mx-auto max-w-6xl px-4">
-          <h2 className="text-center text-3xl font-bold text-zinc-900 dark:text-zinc-100">
-            Постройки
-          </h2>
-          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
-            {[1, 2, 3].map((i) => (
-              <div
-                key={i}
-                className="aspect-[4/3] overflow-hidden rounded-xl bg-zinc-200 dark:bg-zinc-700"
-              >
-                <div className="flex h-full w-full items-center justify-center text-zinc-500 dark:text-zinc-400">
-                  Постройка {i}
-                </div>
-              </div>
-            ))}
+      {/* Блок Постройки: 86px от слайдера, заголовок ПОСТРОЙКИ, 3 картинки, кнопка БОЛЬШЕ >>> */}
+      <section className="builds-block">
+        <h2 className="builds-title">ПОСТРОЙКИ</h2>
+        <div className="builds-gallery">
+          <div className="builds-img-wrap builds-img-1">
+            <div className="builds-img-placeholder">Постройка 1</div>
+            <div className="builds-more-wrap">
+              <Link href="/builds" className="builds-more-btn">
+                БОЛЬШЕ &gt;&gt;&gt;
+              </Link>
+            </div>
           </div>
-          <div className="mt-10 flex justify-center">
-            <Link
-              href="/builds"
-              className="rounded-full border-2 border-zinc-800 px-8 py-3 font-medium text-zinc-800 transition hover:bg-zinc-800 hover:text-white dark:border-zinc-200 dark:text-zinc-200 dark:hover:bg-zinc-200 dark:hover:text-zinc-900"
-            >
-              Посмотреть постройки
-            </Link>
+          <div className="builds-img-wrap builds-img-2">
+            <div className="builds-img-placeholder">Постройка 2</div>
+          </div>
+          <div className="builds-img-wrap builds-img-3">
+            <div className="builds-img-placeholder">Постройка 3</div>
           </div>
         </div>
       </section>
 
-      {/* 3. Блок Скины */}
-      <section className="border-t border-zinc-200 py-16 dark:border-zinc-800">
-        <div className="mx-auto max-w-6xl px-4">
-          <h2 className="text-center text-3xl font-bold text-zinc-900 dark:text-zinc-100">
-            Скины
-          </h2>
-          <div className="mt-10 grid grid-cols-2 gap-6 md:grid-cols-4">
-            {[1, 2, 3, 4].map((i) => (
-              <div
-                key={i}
-                className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm dark:border-zinc-700 dark:bg-zinc-800"
-              >
-                <div className="aspect-square bg-zinc-100 dark:bg-zinc-700">
-                  <div className="flex h-full w-full items-center justify-center text-sm text-zinc-500 dark:text-zinc-400">
-                    Скин {i}
-                  </div>
-                </div>
-                <div className="p-3 text-center text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                  Карточка скина {i}
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="mt-10 flex justify-center">
-            <Link
-              href="/skins"
-              className="rounded-full border-2 border-zinc-800 px-8 py-3 font-medium text-zinc-800 transition hover:bg-zinc-800 hover:text-white dark:border-zinc-200 dark:text-zinc-200 dark:hover:bg-zinc-200 dark:hover:text-zinc-900"
-            >
-              Посмотреть скины
-            </Link>
-          </div>
+      {/* Блок cRbys: 70px от построек, 4 карточки 305×440, 2 кнопки в ряд */}
+      <section className="skins-block">
+        <h2 className="section-title-cyan">cRbys</h2>
+        <div className="skins-cards-row">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="skin-card-main">
+              <div className="builds-img-placeholder">Скин {i}</div>
+            </div>
+          ))}
+        </div>
+        <div className="skins-buttons-row">
+          <Link href="/skins" className="skins-btn-more">
+            БОЛЬШЕ &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+          </Link>
+          <Link href="/skins" className="skins-btn-all">
+            ВСЕ СКИНЫ &gt;&gt;&gt;&gt;&gt;
+          </Link>
         </div>
       </section>
 
-      {/* 4. Блок Сиды */}
-      <section className="border-t border-zinc-200 bg-white py-16 dark:border-zinc-800 dark:bg-zinc-900">
-        <div className="mx-auto max-w-6xl px-4">
-          <h2 className="text-center text-3xl font-bold text-zinc-900 dark:text-zinc-100">
-            Сиды
-          </h2>
-          <div className="mt-10 flex justify-center">
-            <div className="aspect-video w-full max-w-3xl overflow-hidden rounded-xl bg-zinc-800 shadow-xl">
-              <div className="flex h-full w-full items-center justify-center text-zinc-400">
-                Скриншот из игры
+      {/* Блок СИДЫ: 108px от скинов, слайдер 1283×474, инфо о сиде, кнопка БОЛЬШЕ >>> */}
+      <section className="seeds-block">
+        <h2 className="section-title-cyan">СИДЫ</h2>
+        <div className="seeds-slider-wrap">
+          <div className="seeds-slider-track">
+            <div className="seeds-slide">
+              <div className="builds-img-placeholder seeds-slide-bg">Слайд сида</div>
+              <div className="seeds-slide-info">
+                <div className="seeds-slide-number">−1234567890123456789</div>
+                <div className="seeds-slide-name">Название сида</div>
+              </div>
+              <div className="seeds-more-wrap">
+                <Link href="/seeds" className="builds-more-btn">
+                  БОЛЬШЕ &gt;&gt;&gt;
+                </Link>
               </div>
             </div>
           </div>
-          <div className="mt-10 flex justify-center">
-            <Link
-              href="/seeds"
-              className="rounded-full border-2 border-zinc-800 px-8 py-3 font-medium text-zinc-800 transition hover:bg-zinc-800 hover:text-white dark:border-zinc-200 dark:text-zinc-200 dark:hover:bg-zinc-200 dark:hover:text-zinc-900"
-            >
-              Посмотреть сиды
-            </Link>
-          </div>
+          <button type="button" className="seeds-nav-btn prev" aria-label="Предыдущий" />
+          <button type="button" className="seeds-nav-btn next" aria-label="Следующий" />
         </div>
       </section>
 
-      {/* 5. Блок Моды */}
-      <section className="border-t border-zinc-200 py-16 dark:border-zinc-800">
-        <div className="mx-auto max-w-6xl px-4">
-          <h2 className="text-center text-3xl font-bold text-zinc-900 dark:text-zinc-100">
-            Моды
-          </h2>
-          <div className="mt-10 rounded-2xl border border-zinc-200 bg-white p-8 dark:border-zinc-700 dark:bg-zinc-800 md:p-12">
-            <p className="text-center text-zinc-600 dark:text-zinc-400">
-              Скачивайте моды для Minecraft: Java, Bedrock и универсальные. Описание, скриншоты и файлы в одном месте.
-            </p>
+      {/* Блок моДЫ: 84px от сидов, 2 картинки 1286×393, кнопка на всю ширину */}
+      <section className="mods-block-home">
+        <h2 className="section-title-cyan">моДЫ</h2>
+        <div className="mods-images-row">
+          <div className="mods-img-wrap">
+            <div className="builds-img-placeholder mods-img-fill">Картинка 1</div>
+            <span className="mods-img-label-left">ХОРРОРЫ</span>
           </div>
-          <div className="mt-10 flex justify-center">
-            <Link
-              href="/mods"
-              className="rounded-full border-2 border-zinc-800 px-8 py-3 font-medium text-zinc-800 transition hover:bg-zinc-800 hover:text-white dark:border-zinc-200 dark:text-zinc-200 dark:hover:bg-zinc-200 dark:hover:text-zinc-900"
-            >
-              Подробнее
-            </Link>
+          <div className="mods-img-wrap">
+            <div className="builds-img-placeholder mods-img-fill">Картинка 2</div>
+            <span className="mods-img-label-right">
+              ИНДУСТР<br />иаль<br />ные
+            </span>
           </div>
+          <Link href="/mods" className="mods-more-full">
+            БОЛЬШЕ &gt;&gt;&gt;
+          </Link>
         </div>
       </section>
-    </div>
+    </>
   );
 }

@@ -8,10 +8,12 @@
   flex-direction: column;
 }
 
-/* Основной контент по центру: отступы 320px, фон контента */
+/* Основной контент: фрейм шириной 1440px по центру */
 .content-area {
-  margin-left: 320px;
-  margin-right: 320px;
+  width: 100%;
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
   background-color: #22B14C;
   min-height: 100vh;
   display: flex;
@@ -32,51 +34,68 @@
 }
 
 .site-header-inner {
-  height: 56px;
+  min-height: 87.3px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 16px;
+  gap: 24px;
 }
 
+/* Логотип: 314×87.3, клик — переход на главную */
 .site-logo {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: #0a0a0a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 314px;
+  height: 87.3px;
+  flex-shrink: 0;
   text-decoration: none;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
 .site-logo:hover {
-  text-decoration: underline;
+  opacity: 0.9;
 }
 
+.site-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Навигация: белый текст, 26px */
 .site-nav {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
+  flex-wrap: nowrap;
 }
 
 .site-nav a {
   padding: 8px 12px;
-  font-size: 0.875rem;
-  color: #3f3f3f;
+  font-size: 26px;
+  color: #fff;
   text-decoration: none;
   border-radius: 6px;
 }
 
 .site-nav a:hover {
-  background-color: rgba(0,0,0,0.06);
-  color: #0a0a0a;
+  opacity: 0.9;
 }
 
+/* Кнопки Войти/Регистрация: выходят за контент вправо на 30px */
 .site-header-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
+  margin-right: -30px;
 }
 
-.site-header-actions a,
-.site-header-actions button {
+.site-header-actions a:not(.btn-auth),
+.site-header-actions button:not(.btn-auth) {
   padding: 8px 16px;
   font-size: 0.875rem;
   font-weight: 500;
@@ -84,23 +103,46 @@
   border: none;
   cursor: pointer;
   background: none;
-  color: #262626;
+  color: #fff;
   text-decoration: none;
   font-family: inherit;
 }
 
-.site-header-actions a:hover,
-.site-header-actions button:hover {
-  background-color: rgba(0,0,0,0.06);
+.site-header-actions a:not(.btn-auth):hover,
+.site-header-actions button:not(.btn-auth):hover {
+  opacity: 0.9;
+}
+
+/* Белый прямоугольник: высота 52px, отступы слева/справа по 25px, ширина по содержимому */
+.btn-auth {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 52px;
+  padding: 0 25px;
+  background-color: #fff;
+  color: #22B14C;
+  font-size: 32px;
+  font-weight: 500;
+  text-decoration: none;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.btn-auth:hover {
+  opacity: 0.92;
 }
 
 .btn-register {
-  background-color: #0a0a0a;
-  color: #fff !important;
+  background-color: #fff;
+  color: #22B14C !important;
 }
 
 .btn-register:hover {
-  background-color: #262626;
+  opacity: 0.92;
 }
 
 /* Футер */
@@ -128,11 +170,14 @@
   margin: 0 auto;
 }
 
-/* Главная: слайдер */
+/* Главная: слайдер 1282×722 */
 .hero-slider {
   position: relative;
-  height: 70vh;
-  min-height: 400px;
+  width: 100%;
+  max-width: 1282px;
+  height: 722px;
+  margin-left: auto;
+  margin-right: auto;
   overflow: hidden;
 }
 
@@ -147,6 +192,8 @@
   height: 100%;
   width: 33.333%;
   flex-shrink: 0;
+  background-size: cover;
+  background-position: center;
 }
 
 .hero-slide-1 { background: linear-gradient(to bottom right, #064e3b, #0f766e, #0e7490); }
@@ -158,44 +205,444 @@
   inset: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   gap: 24px;
-  padding: 16px;
+  padding: 40px 32px;
 }
 
+/* Заголовок на слайдере: 100px, красный, по левому краю, подчёркивание */
 .hero-title {
-  text-align: center;
-  font-size: 2.25rem;
+  text-align: left;
+  font-size: 100px;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #fff;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  line-height: 1.1;
+  color: #ff0000;
+  text-decoration: underline;
+  text-decoration-color: #ff0000;
 }
 
-@media (min-width: 768px) {
-  .hero-title { font-size: 3rem; }
-}
-
-@media (min-width: 1024px) {
-  .hero-title { font-size: 3.75rem; }
-}
-
+/* Кнопка «зАРЕГИСТРИРОВАТЬСЯ»: 413×91, фон #3700FF, текст 30px bold */
 .hero-cta {
-  display: inline-block;
-  padding: 12px 32px;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #065f46;
-  background-color: #fff;
-  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 413px;
+  height: 91px;
+  font-size: 30px;
+  font-weight: 700;
+  color: #fff;
+  background-color: #3700FF;
   text-decoration: none;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+  font-family: inherit;
+  border: none;
+  flex-shrink: 0;
 }
 
 .hero-cta:hover {
-  background-color: #f4f4f5;
+  opacity: 0.92;
+}
+
+/* Кнопки навигации слайдера: 89×88 (вставьте SVG внутрь) */
+.hero-nav-btns {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 16px;
+  pointer-events: none;
+}
+
+.hero-nav-btns > * {
+  pointer-events: auto;
+}
+
+.hero-nav-btn {
+  width: 89px;
+  height: 88px;
+  padding: 0;
+  border: none;
+  background: rgba(0,0,0,0.3);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.hero-nav-btn:hover {
+  background: rgba(0,0,0,0.5);
+}
+
+.hero-nav-btn svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Блок Постройки: 86px от слайдера */
+.builds-block {
+  margin-top: 86px;
+  padding: 0 16px 48px;
+  max-width: 1284px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.builds-title {
+  text-align: center;
+  font-size: 60px;
+  font-weight: 700;
+  color: #00FFDD;
+  text-shadow: 0 10px 10px rgba(0,0,0,0.5);
+  margin-bottom: 24px;
+}
+
+/* Сетка: слева 847×589, справа сверху 413×303, справа снизу 414×263 */
+.builds-gallery {
+  display: grid;
+  grid-template-columns: 847px 414px;
+  grid-template-rows: 304px 265px;
+  gap: 20px;
+}
+
+.builds-img-wrap {
+  position: relative;
+  overflow: hidden;
+  background-color: rgba(0,0,0,0.2);
+}
+
+.builds-img-1 {
+  grid-row: span 2;
+  min-height: 589px;
+}
+
+.builds-img-2,
+.builds-img-3 {
+  min-height: 0;
+}
+
+.builds-img-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.8);
+  font-size: 1rem;
+}
+
+.builds-more-wrap {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 0 0 16px 16px;
+}
+
+.builds-more-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 259px;
+  height: 54px;
+  background-color: #FBFF00;
+  border: 4px solid #0800FF;
+  color: #0800FF;
+  font-size: 32px;
+  font-weight: 700;
+  text-decoration: none;
+  font-family: inherit;
+}
+
+.builds-more-btn:hover {
+  opacity: 0.95;
+}
+
+@media (max-width: 1320px) {
+  .builds-gallery {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+  .builds-img-1 { grid-row: span 1; min-height: 300px; }
+}
+
+/* Общий стиль заголовков: по центру, 60px, #00FFDD, Bold, тень 0 10px 10px rgba(0,0,0,0.5) */
+.section-title-cyan {
+  text-align: center;
+  font-size: 60px;
+  font-weight: 700;
+  color: #00FFDD;
+  text-shadow: 0 10px 10px rgba(0,0,0,0.5);
+  margin-bottom: 0;
+}
+
+/* Блок cRbys (Скины): 70px от построек */
+.skins-block {
+  margin-top: 70px;
+  padding: 0 16px 48px;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.skins-block .section-title-cyan {
+  margin-bottom: 24px;
+}
+
+.skins-cards-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.skin-card-main {
+  width: 305px;
+  height: 440px;
+  flex-shrink: 0;
+  overflow: hidden;
+  background-color: rgba(0,0,0,0.2);
+}
+
+.skin-card-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.skin-card-main .builds-img-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+.skins-buttons-row {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: nowrap;
+  margin-top: 24px;
+}
+
+.skins-btn-more,
+.skins-btn-all {
+  width: 630px;
+  max-width: calc(50% - 10px);
+  height: 54px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FBFF00;
+  border: 4px solid #0800FF;
+  color: #0800FF;
+  font-size: 32px;
+  font-weight: 700;
+  text-decoration: none;
+  font-family: inherit;
+  flex-shrink: 0;
+}
+
+.skins-btn-more:hover,
+.skins-btn-all:hover {
+  opacity: 0.95;
+}
+
+/* Блок СИДЫ: 108px от скинов */
+.seeds-block {
+  margin-top: 108px;
+  padding: 0 16px 48px;
+  max-width: 1283px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.seeds-block .section-title-cyan {
+  margin-bottom: 40px;
+}
+
+.seeds-slider-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 1283px;
+  height: 474px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.seeds-slider-track {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.seeds-slide {
+  width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+  position: relative;
+  background-color: #1a1a1a;
+  background-size: cover;
+  background-position: center;
+}
+
+.seeds-slide-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.seeds-slide-info {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 16px 20px;
+  z-index: 2;
+}
+
+.seeds-slide-number {
+  font-size: 32px;
+  font-weight: 700;
+  color: #FF0004;
+  -webkit-text-stroke: 2px #000000;
+  paint-order: stroke fill;
+}
+
+.seeds-slide-name {
+  font-size: 99px;
+  font-weight: 700;
+  color: #FFFFFF;
+  -webkit-text-stroke: 4px #FF0004;
+  paint-order: stroke fill;
+  line-height: 1;
+}
+
+.seeds-more-wrap {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 0 16px 16px 0;
+  z-index: 2;
+}
+
+.seeds-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 89px;
+  height: 88px;
+  border: none;
+  background-color: rgba(0,0,0,0.4);
+  color: #fff;
+  cursor: pointer;
+  z-index: 3;
+  padding: 0;
+}
+
+.seeds-nav-btn.prev { left: 12px; }
+.seeds-nav-btn.next { right: 12px; }
+
+.seeds-nav-btn svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Блок моДЫ: 84px от сидов */
+.mods-block-home {
+  margin-top: 84px;
+  padding: 0 16px 48px;
+  max-width: 1286px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mods-block-home .section-title-cyan {
+  margin-bottom: 21px;
+}
+
+.mods-images-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  max-width: 1286px;
+  margin: 0 auto;
+}
+
+.mods-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 393px;
+  max-width: 1286px;
+  overflow: hidden;
+  background-color: rgba(0,0,0,0.2);
+}
+
+.mods-img-wrap .builds-img-placeholder,
+.mods-img-fill {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  position: absolute;
+  inset: 0;
+}
+
+.mods-img-label-left {
+  position: absolute;
+  left: 24px;
+  top: 24px;
+  font-size: 100px;
+  font-weight: 700;
+  color: #FF0000;
+  text-decoration: underline;
+  text-decoration-color: #FF0000;
+  z-index: 2;
+}
+
+.mods-img-label-right {
+  position: absolute;
+  right: 24px;
+  top: 24px;
+  font-size: 100px;
+  font-weight: 700;
+  color: #FF0000;
+  text-align: right;
+  line-height: 1.1;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-decoration-color: #FF0000;
+  z-index: 2;
+}
+
+.mods-more-full {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 54px;
+  background-color: #000000;
+  border: 4px solid #0800FF;
+  color: #0800FF;
+  font-size: 32px;
+  font-weight: 700;
+  text-decoration: none;
+  font-family: inherit;
+  margin-top: 0;
+}
+
+.mods-more-full:hover {
+  opacity: 0.9;
+}
+
+
+@media (max-width: 1320px) {
+  .mods-img-label-right { font-size: 48px; }
 }
 
 /* Секции на главной */

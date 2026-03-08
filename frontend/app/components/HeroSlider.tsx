@@ -10,28 +10,30 @@ const slides = [
 
 export function HeroSlider() {
   return (
-    <section className="relative h-[70vh] min-h-[400px] overflow-hidden">
-      <div
-        className="flex h-full w-[300%]"
-        style={{ animation: "home-slider 15s ease-in-out infinite" }}
-      >
+    <section className="hero-slider">
+      <div className="hero-slider-track">
         {slides.map((slide) => (
           <div
             key={slide.id}
-            className={`h-full w-1/3 shrink-0 bg-gradient-to-br ${slide.gradient}`}
+            className={`hero-slide hero-slide-${slide.id}`}
           />
         ))}
       </div>
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-6 px-4">
-        <h1 className="text-center text-4xl font-bold uppercase tracking-wider text-white drop-shadow-lg md:text-5xl lg:text-6xl">
-          Самый лучший сайт
+      <div className="hero-overlay">
+        <h1 className="hero-title">
+          САМЫ Й<br />ЛУЧШИЙ САЙЬ
         </h1>
-        <Link
-          href="/auth/register"
-          className="rounded-full bg-white px-8 py-3 text-base font-semibold text-emerald-800 shadow-lg transition hover:bg-zinc-100"
-        >
-          Зарегистрироваться
+        <Link href="/auth/register" className="hero-cta">
+          зАРЕГИСТРИРОВАТЬСЯ
         </Link>
+      </div>
+      <div className="hero-nav-btns" aria-hidden="true">
+        <button type="button" className="hero-nav-btn prev" aria-label="Предыдущий слайд">
+          {/* Вставьте SVG */}
+        </button>
+        <button type="button" className="hero-nav-btn next" aria-label="Следующий слайд">
+          {/* Вставьте SVG */}
+        </button>
       </div>
     </section>
   );

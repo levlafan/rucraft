@@ -189,7 +189,7 @@ export type BuildPost = {
   description?: string | null;
   images: string[];
   blocks: BuildBlock[];
-  video_url?: string | null;
+  file_url?: string | null;
   author: ContentAuthor;
   created_at: string;
 };
@@ -254,5 +254,4 @@ export const seedsApi = {
 
 export const skinsApi = {
   index: () => apiFetch<{ data: SkinPost[] }>("skins"),
-  show: (id: number) => apiFetch<ShowResponse<SkinPost>>(`skins/${id}`),
 };

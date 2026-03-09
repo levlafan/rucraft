@@ -36,10 +36,7 @@ export default async function SkinsPage() {
         ) : (
           <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
             {skins.map((skin) => {
-              const imageSrc =
-                skin.image_url ??
-                resolveAssetUrl(skin.image) ??
-                "/placeholder-skin.png";
+              const imageSrc = resolveAssetUrl(skin.image) ?? "/placeholder-skin.png";
               return (
                 <article key={skin.id} className="card">
                   <div className="card-image">

@@ -1,4 +1,4 @@
-const getBaseUrl = () =>
+export const getBaseUrl = () =>
   process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api";
 
 export const getBackendBaseUrl = () => {
@@ -211,6 +211,7 @@ export type SeedPost = {
   title: string;
   image?: string | null;
   image_url?: string | null;
+  images?: string[];
   seed: string;
   version: "java" | "bedrock" | "both";
   release: string;
@@ -225,9 +226,9 @@ export type SkinPost = {
   id: number;
   title: string;
   image?: string | null;
-  category: "funny" | "girls" | "boys" | "anime";
-  image_url: string;
-  file_url: string;
+  category: "funny" | "girls" | "boys" | "anime" | string;
+  image_url?: string | null;
+  file_url?: string | null;
   author: ContentAuthor;
   created_at: string;
 };

@@ -29,6 +29,11 @@ export default async function SeedsPage() {
   return (
     <div className="page-content">
       <PageSection title="Сиды">
+        <div className="mb-6">
+          <Link href="/seeds/map" className="btn-link inline-flex">
+            Открыть карту сидов
+          </Link>
+        </div>
         {fetchFailed ? (
           apiErrorMessage
         ) : seeds.length === 0 ? (

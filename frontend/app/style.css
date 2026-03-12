@@ -947,6 +947,7 @@
   z-index: 2;
 }
 
+/* Стили для стрелок SeedsSlider */
 .seeds-nav-btn {
   position: absolute;
   top: 50%;
@@ -954,23 +955,54 @@
   width: 89px;
   height: 88px;
   border: none;
-  background-color: rgba(0,0,0,0.4);
-  color: #fff;
+  background-color: transparent;
   cursor: pointer;
   z-index: 3;
   padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.2s ease;
 }
 
-.seeds-nav-btn.prev { left: 12px; }
-.seeds-nav-btn.next { right: 12px; }
+.seeds-nav-btn.prev {
+  left: 12px;
+}
 
-.seeds-nav-btn svg {
-  width: 60%;
-  height: 60%;
+.seeds-nav-btn.next {
+  right: 12px;
+}
+
+.seeds-nav-btn img {
+  width: 80%;
+  height: 80%;
   object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+/* Стили для иконок стрелок */
+.nav-arrow-icon {
+  transition: transform 0.2s ease;
+}
+
+/* Левая стрелка - зеркальное отражение */
+.nav-arrow-left {
+  transform: scaleX(-1);
+}
+
+/* Эффект увеличения при наведении на кнопку */
+.seeds-nav-btn:hover .nav-arrow-icon {
+  transform: scale(1.4);
+}
+
+/* Для левой стрелки сохраняем зеркальное отображение при наведении */
+.seeds-nav-btn.prev:hover .nav-arrow-left {
+  transform: scaleX(-1) scale(1.4);
+}
+
+/* Для правой стрелки обычное увеличение */
+.seeds-nav-btn.next:hover .nav-arrow-icon {
+  transform: scale(1.4);
 }
 
 /* Блок моДЫ: 84px от сидов */

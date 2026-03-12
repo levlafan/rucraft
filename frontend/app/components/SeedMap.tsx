@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 "use client";
 
-import { useEffect, useRef, useState, type MouseEvent, WheelEvent } from "react";
+import { useEffect, useRef, useState, type MouseEvent, type WheelEvent as ReactWheelEvent } from "react";
 
 type BiomeId =
   | "ocean"
@@ -235,35 +235,58 @@ export function SeedMap() {
     return { worldX, worldZ };
   };
 
-  // Обработчик колесика мыши
-  const handleWheel = (e: WheelEvent<HTMLCanvasElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+  // Колесико мыши: зум + запрет прокрутки страницы (не глобально, а только внутри карты)
+  useEffect(() => {
+    const container = mapContainerRef.current;
+    if (!container) return;
 
-    const rect = canvas.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
+    const onWheel = (e: globalThis.WheelEvent) => {
+      // Блокируем прокрутку страницы, когда колесо крутят над картой
+      e.preventDefault();
+      e.stopPropagation();
 
-    // Определяем направление прокрутки
-    const delta = e.deltaY > 0 ? -0.2 : 0.2;
-    
-    // Сохраняем мировые координаты под курсором до изменения зума
-    const { worldX: worldXBefore, worldZ: worldZBefore } = screenToWorld(mouseX, mouseY, centerX, centerZ, zoom);
-    
-    // Изменяем зум
-    const newZoom = Math.max(0.25, Math.min(8, zoom * (1 + delta)));
-    
-    // Вычисляем новый центр так, чтобы точка под курсором осталась на месте
-    const { worldX: worldXAfter, worldZ: worldZAfter } = screenToWorld(mouseX, mouseY, centerX, centerZ, newZoom);
-    
-    // Корректируем центр
-    setCenterX(prev => prev + (worldXBefore - worldXAfter));
-    setCenterZ(prev => prev + (worldZBefore - worldZAfter));
-    setZoom(newZoom);
-  };
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+
+      const rect = canvas.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+      const mouseY = e.clientY - rect.top;
+
+      // если колесо крутят по контейнеру, но не над самим канвасом — ничего не делаем
+      if (mouseX < 0 || mouseX > rect.width || mouseY < 0 || mouseY > rect.height) return;
+
+      // Переводим в координаты "буфера" канваса (на случай scale в CSS)
+      const sx = (mouseX / rect.width) * canvas.width;
+      const sy = (mouseY / rect.height) * canvas.height;
+
+      const delta = e.deltaY > 0 ? -0.15 : 0.15;
+
+      const { worldX: worldXBefore, worldZ: worldZBefore } = screenToWorld(
+        sx,
+        sy,
+        centerX,
+        centerZ,
+        zoom
+      );
+
+      const newZoom = Math.max(0.25, Math.min(8, zoom * (1 + delta)));
+
+      const { worldX: worldXAfter, worldZ: worldZAfter } = screenToWorld(
+        sx,
+        sy,
+        centerX,
+        centerZ,
+        newZoom
+      );
+
+      setCenterX((prev) => prev + (worldXBefore - worldXAfter));
+      setCenterZ((prev) => prev + (worldZBefore - worldZAfter));
+      setZoom(newZoom);
+    };
+
+    container.addEventListener("wheel", onWheel, { passive: false });
+    return () => container.removeEventListener("wheel", onWheel as EventListener);
+  }, [centerX, centerZ, zoom]);
 
   // Обработчики для перетаскивания
   const handleMouseDown = (e: MouseEvent<HTMLCanvasElement>) => {
@@ -290,8 +313,6 @@ export function SeedMap() {
       e.preventDefault();
       e.stopPropagation();
       
-      const canvasWidth = canvas.width;
-      const canvasHeight = canvas.height;
       const blocksPerPixel = 8 / zoom;
       
       const dx = (dragStart.x - e.clientX) * blocksPerPixel;
@@ -436,7 +457,7 @@ export function SeedMap() {
     // Генерация структур
     const newStructures: StructureMarker[] = [];
 
-    const gridStep = 8; // как раньше: одна структура на 8 чанков по каждой оси
+    const gridStep = 8;
 
     const startChunkX = Math.floor((startX - 64) / 16);
     const endChunkX = Math.ceil((endX + 64) / 16);
@@ -494,17 +515,11 @@ export function SeedMap() {
   };
 
   const zoomIn = () => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    
     const newZoom = Math.min(8, zoom * 1.5);
     setZoom(newZoom);
   };
   
   const zoomOut = () => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    
     const newZoom = Math.max(0.25, zoom / 1.5);
     setZoom(newZoom);
   };
@@ -617,14 +632,10 @@ export function SeedMap() {
       <div 
         ref={mapContainerRef}
         className="relative inline-block overflow-hidden rounded-lg border border-gray-700 bg-black"
-        style={{ position: 'relative' }}
-        onWheel={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-        }} // Предотвращаем прокрутку страницы при зуме карты
-        onWheelCapture={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
+        style={{ 
+          position: 'relative',
+          margin: '0 auto',
+          width: '800px',
         }}
       >
         {/* Канвас с обработчиками событий */}
@@ -647,7 +658,6 @@ export function SeedMap() {
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseLeave}
           onClick={handleClick}
-          onWheel={handleWheel}
         />
 
         {/* Слой с метками */}

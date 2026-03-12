@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+.site-header-actions button {
+  border: none;
+}
+
 .site-root {
   background-color: #B5E61D;
   min-height: 100vh;
@@ -368,10 +372,10 @@
   position: relative;
   width: 80%;
   max-width: 1282px;
-  height: 722px;
+  height: 500px;
   overflow: hidden;
   justify-content: center;
-  margin: 0 auto;
+  margin: 10% auto;
 }
 
 .hero-slider-track {
@@ -401,15 +405,16 @@
   align-items: flex-start;
   justify-content: center;
   gap: 24px;
-  padding: 40px 32px;
+  padding: 70px 32px;
+  font-family: 'Comic Relief';
 }
 
 /* Заголовок на слайдере: 100px, красный, по левому краю, подчёркивание */
 .hero-title {
   text-align: left;
-  font-size: 100px;
-  font-weight: 700;
-  line-height: 1.1;
+  font-size: 50pt;
+  font-weight: 500;
+  line-height: 1.5;
   color: #ff0000;
   text-decoration: underline;
   text-decoration-color: #ff0000;
@@ -420,10 +425,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 413px;
-  height: 91px;
-  font-size: 30px;
-  font-weight: 700;
+  padding: 2% 5%;
+  font-size: 20pt;
+  font-weight: 500;
   color: #fff;
   background-color: #3700FF;
   text-decoration: none;
@@ -479,27 +483,35 @@
 
 /* Блок Постройки: 86px от слайдера */
 .builds-block {
-  margin-top: 86px;
-  padding: 0 16px 48px;
   max-width: 1284px;
+  width: 80%;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 10%;
 }
 
-.builds-title {
+.builds-title, .skins-block h2, .seeds-block h2 {
   text-align: center;
-  font-size: 60px;
-  font-weight: 700;
-  color: #00FFDD;
+  font-size: 40pt;
+  font-weight: 400;
+  font-family: 'Comic Relief';
+  color: #ffffff;
   text-shadow: 0 10px 10px rgba(0,0,0,0.5);
   margin-bottom: 24px;
+}
+
+.skins-block h2 {
+  color: #aeff00;
+}
+
+.seeds-block h2 {
+  color: #000;
 }
 
 /* Сетка: слева 847×589, справа сверху 413×303, справа снизу 414×263 */
 .builds-gallery {
   display: grid;
-  grid-template-columns: 847px 414px;
-  grid-template-rows: 304px 265px;
+  grid-template-columns: 2.05fr 1fr;  /* 847 : 414 ≈ 2.05 : 1 */
   gap: 20px;
 }
 
@@ -575,8 +587,9 @@
 .section-title-cyan {
   text-align: center;
   font-size: 60px;
-  font-weight: 700;
-  color: #00FFDD;
+  font-weight: 400;
+  color: #000000;
+  font-family: 'Comic Relief';
   text-shadow: 0 10px 10px rgba(0,0,0,0.5);
   margin-bottom: 0;
 }
@@ -658,6 +671,7 @@
   margin-top: 108px;
   padding: 0 16px 48px;
   max-width: 1283px;
+  width: 80%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -711,6 +725,7 @@
   bottom: 0;
   padding: 16px 20px;
   z-index: 2;
+  font-family: 'Comic Relief';
 }
 
 .seeds-slide-number {
@@ -766,6 +781,7 @@
   margin-top: 84px;
   padding: 0 16px 48px;
   max-width: 1286px;
+  width: 80%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -807,11 +823,15 @@
   display: block;
 }
 
+.mods-img-label-left, .mods-img-label-right {
+  font-family: 'Comic Relief';
+}
+
 .mods-img-label-left {
   position: absolute;
   left: 24px;
   top: 24px;
-  font-size: 100px;
+  font-size: 50pt;
   font-weight: 700;
   color: #FF0000;
   text-decoration: underline;
@@ -823,7 +843,7 @@
   position: absolute;
   right: 24px;
   top: 24px;
-  font-size: 100px;
+  font-size: 50pt;
   font-weight: 700;
   color: #FF0000;
   text-align: right;
